@@ -12,7 +12,7 @@ public class PowerBar : MonoBehaviour
 
     private bool isShooting = false;
     private Slider powerbar;
-    
+    private bool isPowerAum = true;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,27 @@ public class PowerBar : MonoBehaviour
 
         if (isShooting)
         {
-            powerbar.value += Time.deltaTime * club.control;
+
+            if( isPowerAum )
+            {
+                powerbar.value += Time.deltaTime * club.control;
+            } else { powerbar.value -= Time.deltaTime * club.control; }
+
+            if( powerbar.value >= 1000 )
+            {
+                isPowerAum = false;
+            } 
+            if( powerbar.value <= 0)
+            {
+                isPowerAum = true;
+            }
         }
+
+        if( powerbar.value <= 0)
+        {
+            isShooting=false;
+        }
+        Debug.Log(powerbar.value);
+        Debug.Log(isShooting);
     }
 }
